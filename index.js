@@ -17,15 +17,19 @@ app.use(express.urlencoded({ extended: true }));
 const versionRoutes = require('./features/app_version/version_routes.js'); // Adjust the path as needed
 const registerRoutes
     = require('./features/registration/registration_routes.js');
-
 const loginRoutes
     = require('./features/login/login_routes.js');
+const linkShortenRoutes
+    = require('./features/link_shortner/link_shortner_routes.js');
 
 
 // ROUTE USES    
 app.use('/api', versionRoutes);
 app.use('/api', registerRoutes);
 app.use('/api', loginRoutes);
+app.use('/api', linkShortenRoutes);
+
+
 
 
 
@@ -35,10 +39,9 @@ app.get('/', (req, res) => {
     res.status(200).send("Snapped URL API.");
 });
 
-app.get('/123', (req, res) => {
-    // Redirect to the Google website
-    res.redirect('https://www.google.com');
-});
+
+
+
 
 app.use(clientError);
 app.use(serverError);

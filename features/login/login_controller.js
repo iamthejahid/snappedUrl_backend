@@ -34,7 +34,7 @@ exports.loginUser = async (req, res) => {
 
     const expirationInSeconds = 90 * 24 * 60 * 60; // 90 days * 24 hours * 60 minutes * 60 seconds
 
-    const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET, {
+    const token = jwt.sign({ userId: user.user_id }, process.env.JWT_SECRET, {
       expiresIn: expirationInSeconds,
     });
 
