@@ -9,4 +9,4 @@ router.post('/resend-sign-up-otp', basicAuthenticate, registrationController.otp
 
 router.post('/otp-check', basicAuthenticate, registrationController.otpCheck);
 
-module.exports = router;
+module.exports = router; 

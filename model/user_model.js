@@ -29,8 +29,13 @@ const userInfo = new mongoose.Schema({
     required: true,
     default: null
   },
+  otp: {
+    type: Number
+
+  },
   is_verified: {
-    type: Boolean
+    type: Boolean,
+    default: false,
   },
 
 });

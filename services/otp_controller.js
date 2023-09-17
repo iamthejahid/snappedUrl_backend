@@ -13,7 +13,7 @@ async function sendEmailOTP(toEmail, otp, toName, resend = false) {
         };
 
         const data = {
-            sender: { name: 'Duty Doc', email: 'no-reply@doc-chat.com' },
+            sender: { name: 'Snapped Url', email: 'no-reply@snapped-url.com' },
             type: 'classic',
             htmlContent: `Dear ${toName}, your verification code is ${otp}.`,
             to: [
@@ -27,10 +27,7 @@ async function sendEmailOTP(toEmail, otp, toName, resend = false) {
 
         const response = await axios.post(url, data, { headers });
 
-        console.log("[BODY]:", response.data);
-
         if (response.status === 201) {
-            console.log('Verification Email Sent To Your Email');
             return "Success";
         } else {
             return "Failed";

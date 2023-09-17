@@ -51,8 +51,13 @@ exports.registerUser = async (req, res) => {
       await user.save();
       otpService.sendEmailOTP(user.email, user.otp, full_name);
 
-      res.status(200).json({
-        message: `User created with id: ${user.id}`
+      res.status(201).json({
+        message: `User created`,
+        data: {
+          "user_name": user.full_name,
+          "user_id": user.user_id
+        }
+
       });
 
     }
@@ -78,7 +83,11 @@ exports.otpResend = async (req, res) => {
       otpService.sendEmailOTP(user.email, user.otp, user.full_name, true);
 
       res.status(201).json({
-        message: `OTP resend to your email`
+        message: `OTP resend to your email`,
+        data: {
+          "user_name": user.full_name,
+          "user_id": user.user_id
+        }
       });
     } else {
       res.status(500).json({ message: "Something went wrong" });
@@ -94,17 +103,18 @@ exports.otpResend = async (req, res) => {
 exports.otpCheck = async (req, res) => {
   try {
     const {
-      email,
+      id,
       otp
     } = req.body;
 
     let user = await UserLoginInformation.findOne({
-      email
+      id
     });
 
     if (user != null) {
-
       if (user.otp == otp) {
+        user.is_verified = true;
+        await user.save();
         res.status(201).json({
           message: "OTP successful",
           isVerified: true
