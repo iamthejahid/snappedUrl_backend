@@ -15,7 +15,39 @@ async function sendEmailOTP(toEmail, otp, toName, resend = false) {
         const data = {
             sender: { name: 'Snapped Url', email: 'no-reply@snapped-url.com' },
             type: 'classic',
-            htmlContent: `Dear ${toName}, your verification code is ${otp}.`,
+            htmlContent: `
+            <html>
+              <head>
+                <style>
+                  body {
+                    font-family: Arial, sans-serif;
+                    background-color: #f2f2f2;
+                    padding: 20px;
+                  }
+                  .container {
+                    background-color: #ffffff;
+                    padding: 20px;
+                    border-radius: 5px;
+                    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+                  }
+                  h1 {
+                    color: #333;
+                  }
+                  p {
+                    color: #666;
+                  }
+                </style>
+              </head>
+              <body>
+                <div class="container">
+                  <h1>Email Verification</h1>
+                  <p>Dear ${toName},</p>
+                  <p>Your verification code is: <strong>${otp}</strong></p>
+                  <p>If you didn't request this code, you can ignore this email.</p>
+                </div>
+              </body>
+            </html>
+          `,
             to: [
                 {
                     email: toEmail,

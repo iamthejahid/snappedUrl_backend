@@ -3,6 +3,8 @@ const bcrypt = require("bcryptjs");
 const otpService = require('../../services/otp_controller');
 const UserLoginInformation = require('../../model/user_model');
 const Counter = require('./user_counter_model');
+const jwt = require('jsonwebtoken');
+
 
 
 
@@ -72,20 +74,18 @@ exports.registerUser = async (req, res) => {
 exports.otpResend = async (req, res) => {
   try {
     const {
-      email
+      user_id
     } = req.body;
 
     let user = await UserLoginInformation.findOne({
-      email
+      user_id: user_id
     });
 
     if (user != null) {
       otpService.sendEmailOTP(user.email, user.otp, user.full_name, true);
-
       res.status(201).json({
         message: `OTP resend to your email`,
         data: {
-          "user_name": user.full_name,
           "user_id": user.user_id
         }
       });
@@ -114,10 +114,22 @@ exports.otpCheck = async (req, res) => {
     if (user != null) {
       if (user.otp == otp) {
         user.is_verified = true;
+
         await user.save();
+
+        const expirationInSeconds = 90 * 24 * 60 * 60; // 90 days * 24 hours * 60 minutes * 60 seconds
+
+        const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET, {
+          expiresIn: expirationInSeconds,
+        });
+
         res.status(201).json({
           message: "OTP successful",
-          isVerified: true
+          isVerified: true,
+          data: {
+            token: token,
+            "user_info": user
+          }
         });
 
         // save in user's information too!

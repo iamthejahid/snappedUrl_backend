@@ -43,8 +43,7 @@ exports.loginUser = async (req, res) => {
         "otp_verified": false,
         message: `Please verify first!`,
         data: {
-          token: token,
-          "user_info": user
+          "user_id": user.user_id,
         }
       });
     }
