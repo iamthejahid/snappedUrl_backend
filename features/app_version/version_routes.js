@@ -3,10 +3,12 @@ const router = express.Router();
 const versionController = require('./controller');
 const validateVersionField = require('./middleware'); 
 const basicAuthenticate = require('../../middleware/basic_auth_middleware');
+const bearerAuthenticate = require('../../middleware/bearer_atuh_middleware');
+
 
 
 // Define the route for version checking
-router.get('/check-version', versionController.checkVersion);
+router.get('/check-version', bearerAuthenticate , versionController.checkVersion);
 
 
 router.post('/update-version', basicAuthenticate, validateVersionField, versionController.inputInfo);
