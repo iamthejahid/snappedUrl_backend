@@ -10,12 +10,8 @@ exports.registerUser = async (req, res) => {
     const {
       email,
       password,
-      device_id,
       fcm_token,
-      lat,
-      long,
       full_name,
-      last_device_id,
     } = req.body;
 
     let user = await UserLoginInformation.findOne({
@@ -30,17 +26,13 @@ exports.registerUser = async (req, res) => {
       user = new UserLoginInformation({
         email,
         password,
-        device_id,
         fcm_token,
-        lat, long,
         full_name,
-        last_device_id,
-
       });
 
       //saving password
-      const salt = await bcrypt.genSalt(process.env.BCRYPT_COST_FACTOR);
-      user.password = await bcrypt.hash(password, salt);
+      const salt = await bcrypt.genSalt(parseInt(process.env.BCRYPT_COST_FACTOR));
+      user.password = await bcrypt.hash(String(password), salt);
 
 
       const randomNumber = Math.floor(1000 + Math.random() * 9000);;

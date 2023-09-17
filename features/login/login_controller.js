@@ -1,7 +1,6 @@
 const UserLoginInformation = require('../../model/user_model');
 const bcrypt = require("bcryptjs");
-const jwt = require('jsonwebtoken');
-const expressJwt = require('express-jwt');
+const jwt = require('jsonwebtoken');  
 
 exports.loginUser = async (req, res) => {
   try {
@@ -20,7 +19,7 @@ exports.loginUser = async (req, res) => {
         message: "User Not Exist"
       });
 
-    const isMatch = await bcrypt.compare(password, user.password);
+    const isMatch = await bcrypt.compare(String(password), user.password);
 
     if (!isMatch)
       return res.status(400).json({
@@ -40,7 +39,7 @@ exports.loginUser = async (req, res) => {
     });
 
     if(!user.is_verified) {
-      res.status(201).json({
+     return res.status(201).json({
         "otp_verified": false,
         message: `Please verify first!`,
         data : {
@@ -51,7 +50,7 @@ exports.loginUser = async (req, res) => {
 
 
 
-    res.status(201).json({
+    return res.status(201).json({
       message: `Login successful`,
       data: {
         token : token,
@@ -61,6 +60,6 @@ exports.loginUser = async (req, res) => {
     });
   } catch (error) {
     console.error('Error while checking version:', error);
-    res.status(500).json({ message: error });
+    return res.status(500).json({ message: error });
   }
 };
