@@ -1,4 +1,4 @@
-const UserLoginInforamtion = require('./login_model');
+const UserLoginInformation = require('../../model/user_model');
 const bcrypt = require("bcryptjs");
 const jwt = require('jsonwebtoken');
 const expressJwt = require('express-jwt');
@@ -11,7 +11,7 @@ exports.loginUser = async (req, res) => {
       password,
     } = req.body;
 
-    let user = await UserLoginInforamtion.findOne({
+    let user = await UserLoginInformation.findOne({
       email
     });
 
@@ -39,11 +39,25 @@ exports.loginUser = async (req, res) => {
       expiresIn: expirationInSeconds,
     });
 
+    if(!user.is_verified) {
+      res.status(201).json({
+        "otp_verified": false,
+        message: `Please verify first!`,
+        data : {
+          "user_info" :  user 
+        }
+      });
+    }
 
 
-    res.status(200).json({
+
+    res.status(201).json({
       message: `Login successful`,
-      token : token,
+      data: {
+        token : token,
+        "user_info" :  user 
+
+      }
     });
   } catch (error) {
     console.error('Error while checking version:', error);

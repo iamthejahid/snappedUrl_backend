@@ -2,7 +2,7 @@
 
 const mongoose = require('mongoose');
 
-const UserLoginInforamtion = new mongoose.Schema({
+const userInfo = new mongoose.Schema({
   fcm_token: String,
   email: {
     type: String,
@@ -16,9 +16,12 @@ const UserLoginInforamtion = new mongoose.Schema({
     type: Date,
     default: Date.now()
   },
+  is_verified :  {
+    type: Boolean
+  }
 });
 
-//   module.exports = mongoose.model('Version', UserLoginInforamtion);
+//   module.exports = mongoose.model('Version', userInfo);
 
 
-module.exports = mongoose.model('UserLoginInforamtion', UserLoginInforamtion);
+module.exports = mongoose.model('userInfo', userInfo);
