@@ -53,9 +53,9 @@ exports.inputInfo = async (req, res) => {
 
     // Respond with a success message
 
-    res.status(201).json({ message: 'Version information updated/created successfully' });
+    res.status(201).json({ message: 'Version information updated successfully' });
   } catch (error) {
-    console.error('Error while updating/creating version information:', error);
+    console.error('Error while updating version information:', error);
     res.status(500).json({ message: error.message});
   }
 };
