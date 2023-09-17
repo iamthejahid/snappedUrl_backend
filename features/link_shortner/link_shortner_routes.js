@@ -5,6 +5,8 @@ const bearerAuthenticate = require('../../middleware/bearer_atuh_middleware');
 
 
 router.post('/short-link', bearerAuthenticate, linkShortenController.shortLinkCreate);
+router.get('/:shortLinkId', linkShortenController.shortLinkFiring);
+
 
 
 module.exports = router;

@@ -28,6 +28,8 @@ app.use('/api', versionRoutes);
 app.use('/api', registerRoutes);
 app.use('/api', loginRoutes);
 app.use('/api', linkShortenRoutes);
+app.use('/sl', linkShortenRoutes);
+
 
 
 

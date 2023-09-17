@@ -23,7 +23,7 @@ const urlStoreModel = new mongoose.Schema({
         type: Date,
         default: Date.now(),
     },
-    toatal_visit: {
+    total_visit: {
         type: Number,
         default: 0,
     },
