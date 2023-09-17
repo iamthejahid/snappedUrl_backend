@@ -1,6 +1,6 @@
 const UserLoginInformation = require('../../model/user_model');
 const bcrypt = require("bcryptjs");
-const jwt = require('jsonwebtoken');  
+const jwt = require('jsonwebtoken');
 
 exports.loginUser = async (req, res) => {
   try {
@@ -38,12 +38,13 @@ exports.loginUser = async (req, res) => {
       expiresIn: expirationInSeconds,
     });
 
-    if(!user.is_verified) {
-     return res.status(201).json({
+    if (!user.is_verified) {
+      return res.status(201).json({
         "otp_verified": false,
         message: `Please verify first!`,
-        data : {
-          "user_info" :  user 
+        data: {
+          token: token,
+          "user_info": user
         }
       });
     }
@@ -53,8 +54,8 @@ exports.loginUser = async (req, res) => {
     return res.status(201).json({
       message: `Login successful`,
       data: {
-        token : token,
-        "user_info" :  user 
+        token: token,
+        "user_info": user
 
       }
     });
