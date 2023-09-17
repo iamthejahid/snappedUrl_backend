@@ -2,8 +2,7 @@
 
 const mongoose = require('mongoose');
 
-const UserLogin = new mongoose.Schema({
-  device_id: String,
+const UserLoginInforamtion = new mongoose.Schema({
   fcm_token: String,
   email: {
     type: String,
@@ -19,7 +18,7 @@ const UserLogin = new mongoose.Schema({
   },
 });
 
-//   module.exports = mongoose.model('Version', userLogin);
+//   module.exports = mongoose.model('Version', UserLoginInforamtion);
 
 
-module.exports = mongoose.model('UserLogin', UserLogin);
+module.exports = mongoose.model('UserLoginInforamtion', UserLoginInforamtion);
