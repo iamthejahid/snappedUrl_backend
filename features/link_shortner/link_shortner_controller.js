@@ -70,3 +70,27 @@ exports.shortLinkFiring = async (req, res) => {
     }
 };
 
+
+exports.generatedLinkList = async (req, res) => {
+    const user_id = req.user.userId; // Assuming you're using userId for identifying the user
+
+    try {
+        // Find all entries created by the user
+        const links = await UrlStoreModel.find({ created_by: user_id });
+
+        // Create an array of short links from the fetched documents
+        const shortLinks = links.map(link => ({
+            url: link.url,
+            shortLink: `http://localhost:${port}/sl/${link.short_link}`
+        }));
+
+        return res.status(200).json({
+            message: 'List of Short Links',
+            data: links,
+        });
+    } catch (error) {
+        console.error('Error while fetching links:', error);
+        return res.status(500).json({ message: error.message });
+    }
+};
+
