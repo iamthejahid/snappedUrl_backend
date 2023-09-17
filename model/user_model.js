@@ -16,9 +16,19 @@ const userInfo = new mongoose.Schema({
     type: Date,
     default: Date.now()
   },
+  account_createdAt: {
+    type: Date,
+    default: Date.now()
+  },
+  full_name: {
+    type: String,
+    required: true,
+    default: null
+  },
   is_verified :  {
     type: Boolean
-  }
+  },
+  
 });
 
 //   module.exports = mongoose.model('Version', userInfo);
