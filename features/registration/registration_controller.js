@@ -2,6 +2,9 @@
 const bcrypt = require("bcryptjs");
 const otpService = require('../../services/otp_controller');
 const UserLoginInformation = require('../../model/user_model');
+const Counter = require('./user_counter_model');
+
+
 
 
 
@@ -23,7 +26,14 @@ exports.registerUser = async (req, res) => {
         msg: "User Already Exists"
       });
     } else {
+      const counter = await Counter.findOneAndUpdate(
+        { _id: "userId" },
+        { $inc: { sequence_value: 1 } },
+        { new: true, upsert: true }
+      );
+
       user = new UserLoginInformation({
+        user_id: counter.sequence_value,
         email,
         password,
         fcm_token,

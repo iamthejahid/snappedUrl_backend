@@ -3,6 +3,10 @@
 const mongoose = require('mongoose');
 
 const userInfo = new mongoose.Schema({
+  user_id: {
+    type: Number,
+    required: true
+  },
   fcm_token: String,
   email: {
     type: String,
@@ -25,10 +29,10 @@ const userInfo = new mongoose.Schema({
     required: true,
     default: null
   },
-  is_verified :  {
+  is_verified: {
     type: Boolean
   },
-  
+
 });
 
 //   module.exports = mongoose.model('Version', userInfo);
