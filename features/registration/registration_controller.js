@@ -4,6 +4,7 @@ const otpService = require('../../services/otp_controller');
 const UserLoginInformation = require('../../model/user_model');
 const Counter = require('./user_counter_model');
 const jwt = require('jsonwebtoken');
+const registerUserSchema = require('./schema/regstration_controller_schema'); 
 
 
 
@@ -12,6 +13,13 @@ const jwt = require('jsonwebtoken');
 
 exports.registerUser = async (req, res) => {
   try {
+
+    const { error, value } = registerUserSchema.registerUserSchema.validate(req.body);
+
+    if (error) {
+      return res.status(400).json({ message: error.details[0].message });
+    }
+
     const {
       email,
       password,
@@ -72,6 +80,14 @@ exports.registerUser = async (req, res) => {
 
 
 exports.otpResend = async (req, res) => {
+
+
+  const { error, value } = registerUserSchema.otpResendSchema.validate(req.body);
+
+  if (error) {
+    return res.status(400).json({ message: error.details[0].message });
+  }
+
   try {
     const {
       user_id
@@ -101,17 +117,30 @@ exports.otpResend = async (req, res) => {
 
 
 exports.otpCheck = async (req, res) => {
+
+
+  const { error, value } = registerUserSchema.otpVerificationSchema.validate(req.body);
+
+  if (error) {
+    return res.status(400).json({ message: error.details[0].message });
+  }
+
   try {
     const {
-      id,
+      user_id,
       otp
     } = req.body;
 
+    console.log(user_id)
+
     let user = await UserLoginInformation.findOne({
-      id
+      user_id
     });
 
-    if (user != null) {
+    console.log(user)
+
+
+    if (user) {
       if (user.otp == otp) {
         user.is_verified = true;
 
