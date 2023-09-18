@@ -49,6 +49,8 @@ app.use(clientError);
 app.use(serverError);
 
 app.listen(port, async () => {
-    log(`server is running at http://localhost:${port}`);
+    // log(`server is running at http://localhost:${port}`);
+    log(`server is running`);
+
     await connectDB();
 });
