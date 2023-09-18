@@ -2,7 +2,17 @@ const UserLoginInformation = require('../../model/user_model');
 const bcrypt = require("bcryptjs");
 const jwt = require('jsonwebtoken');
 
+const loginUserSchema = require('./schema/login_schema');
+
 exports.loginUser = async (req, res) => {
+
+  const { error, value } = loginUserSchema.validate(req.body);
+
+  if (error) {
+    return res.status(400).json({ message: error.details[0].message });
+  }
+
+
   try {
     const {
       fcm_token,
