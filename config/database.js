@@ -7,7 +7,7 @@ exports.connectDB = async () => {
     await mongoose.connect(String(process.env.DBURL));
 
 
-    console.log("database is connected");
+    console.log("🔥 database is connected 🔥");
   } catch (error) {
     console.log("database is not connected");
     console.log(error.message);

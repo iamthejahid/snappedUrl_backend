@@ -12,6 +12,19 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 
+app.use((req, res, next) => {
+    const timestamp = new Date().toLocaleString();
+    const method = req.method;
+    const url = req.originalUrl;
+    const ip = req.ip;
+  
+    // Log the request details
+    log(`[${timestamp}] ${ip} - ${method} ${url}`);
+  
+    // Continue processing the request
+    next();
+  });
+
 
 // Define the route for version checking
 const versionRoutes = require('./features/app_version/version_routes.js'); // Adjust the path as needed
@@ -50,7 +63,7 @@ app.use(serverError);
 
 app.listen(port, async () => {
     // log(`server is running at http://localhost:${port}`);
-    log(`server is running`);
+    log(`🔥 server is running 🔥`);
 
     await connectDB();
 });
