@@ -36,7 +36,8 @@ exports.shortLinkCreate = async (req, res) => {
             message: 'Short link Created',
             data: {
                 "url": url,
-                "shortLink": `http://localhost:${port}/sl/${urlStoreModel.short_link}`
+                "shortLink": `${process.env.LOCAL_URL}/sl/${urlModel.short_link}`
+
             }
         });
 
@@ -88,10 +89,7 @@ exports.generatedLinkList = async (req, res) => {
         const links = await UrlStoreModel.find({ created_by: user_id });
 
         // Create an array of short links from the fetched documents
-        const shortLinks = links.map(link => ({
-            url: link.url,
-            shortLink: `http://localhost:${port}/sl/${link.short_link}`
-        }));
+       
 
         return res.status(200).json({
             message: 'List of Short Links',
@@ -129,7 +127,7 @@ exports.updateLink = async (req, res) => {
                 message: 'Short link Updated',
                 data: {
                     "url": `${urlModel.url}`,
-                    "shortLink": `http://localhost:${port}/sl/${urlModel.short_link}`
+                    "shortLink": `${process.env.LOCAL_URL}/sl/${urlModel.short_link}`
                 }
             });
         } else {

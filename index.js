@@ -63,7 +63,7 @@ app.use(serverError);
 
 app.listen(port, async () => {
     // log(`server is running at http://localhost:${port}`);
-    log(`🔥 server is running 🔥`);
+    log(`🔥 server is running :: [${process.env.LOCAL_URL}] 🔥`);
 
     await connectDB();
 });
