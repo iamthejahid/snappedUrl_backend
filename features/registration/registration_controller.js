@@ -128,7 +128,10 @@ exports.otpCheck = async (req, res) => {
           isVerified: true,
           data: {
             token: token,
-            "user_info": user
+            "user_info": {
+              "user_id": user.user_id,
+              "email": user.email,
+            }
           }
         });
 

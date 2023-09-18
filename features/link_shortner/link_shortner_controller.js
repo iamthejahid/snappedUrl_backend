@@ -72,7 +72,7 @@ exports.shortLinkFiring = async (req, res) => {
 
 
 exports.generatedLinkList = async (req, res) => {
-    const user_id = req.user.userId; // Assuming you're using userId for identifying the user
+    const user_id = req.user.userId; 
 
     try {
         // Find all entries created by the user
@@ -94,3 +94,65 @@ exports.generatedLinkList = async (req, res) => {
     }
 };
 
+
+
+exports.updateLink = async (req, res) => {
+    const user_id = req.user.userId; 
+    const {link_id, new_link} = req.body; 
+
+
+    try {
+        // Find all entries created by the user
+        const urlModel = await UrlStoreModel.findOne({ created_by: user_id, short_link: link_id });
+
+        if(urlModel) {
+            urlModel.url = new_link;
+
+            await urlModel.save();
+
+            return res.status(201).json({
+                message: 'Short link Updated',
+                data: {
+                    "url": `${urlModel.url}`,
+                    "shortLink": `http://localhost:${port}/sl/${urlModel.short_link}`
+                }
+            });
+        } else {
+            return res.status(404).json({
+                message: 'Not found',
+            });
+        }s
+
+    } catch (error) {
+        console.error('Error while fetching links:', error);
+        return res.status(500).json({ message: error.message });
+    }
+};
+
+
+exports.shortLinkdelete = async (req, res) => {
+    const user_id = req.user.userId; 
+    const {link_id} = req.body; 
+    try {
+        // Find all entries created by the user
+        const urlModel = await UrlStoreModel.findOne({ created_by: user_id, short_link: link_id });
+
+        if(urlModel) {
+            const deletedEntry = await UrlStoreModel.findOneAndDelete({ _id: urlModel._id });
+
+            if (deletedEntry) {
+                return res.status(200).json({ message: 'Short link deleted successfully' });
+            } else {
+                return res.status(404).json({ message: 'Short link not found' });
+            }
+        } else {
+            return res.status(404).json({
+                message: 'Not found',
+            });
+        }s
+
+    } catch (error) {
+        console.error('Error while fetching links:', error);
+        return res.status(500).json({ message: error.message });
+    }
+};

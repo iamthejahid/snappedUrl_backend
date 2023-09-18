@@ -9,7 +9,7 @@ const urlStoreModel = new mongoose.Schema({
     },
     url: {
         type: String,
-        required: true
+        required: true 
     },
     short_link: {
         type: Number,
