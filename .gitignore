@@ -1,0 +1,11 @@
+node_modules
+/.idea
+.idea
+.idea/*
+.idea/workspace.xml
+package-lock.json
+.env
+/.env
+/public
+*.env
+.env
