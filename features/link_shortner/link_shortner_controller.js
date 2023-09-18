@@ -36,7 +36,7 @@ exports.shortLinkCreate = async (req, res) => {
             message: 'Short link Created',
             data: {
                 "url": url,
-                "shortLink": `${process.env.LOCAL_URL}/sl/${urlModel.short_link}`
+                "shortLink": `${process.env.LOCAL_URL}sl/${urlStoreModel.short_link}`
 
             }
         });
@@ -127,7 +127,7 @@ exports.updateLink = async (req, res) => {
                 message: 'Short link Updated',
                 data: {
                     "url": `${urlModel.url}`,
-                    "shortLink": `${process.env.LOCAL_URL}/sl/${urlModel.short_link}`
+                    "shortLink": `${process.env.LOCAL_URL}sl/${urlModel.short_link}`
                 }
             });
         } else {
