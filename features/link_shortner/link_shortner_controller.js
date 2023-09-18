@@ -1,8 +1,17 @@
 const UrlStoreModel = require('./link_shortner_model');
 const port = process.env.PORT
 
+const shortLinkValidtion = require('./schema/link_shorten_schema');
+
 
 exports.shortLinkCreate = async (req, res) => {
+
+
+    const { error, value } = shortLinkValidtion.shortLinkCreateSchema.validate(req.body);
+
+    if (error) {
+      return res.status(400).json({ message: error.details[0].message });
+    }
 
     const user_id = req.user.userId;
     try {
@@ -97,6 +106,12 @@ exports.generatedLinkList = async (req, res) => {
 
 
 exports.updateLink = async (req, res) => {
+
+    const { error, value } = shortLinkValidtion.updateLinkSchema.validate(req.body);
+
+    if (error) {
+      return res.status(400).json({ message: error.details[0].message });
+    }
     const user_id = req.user.userId; 
     const {link_id, new_link} = req.body; 
 
@@ -131,6 +146,13 @@ exports.updateLink = async (req, res) => {
 
 
 exports.shortLinkdelete = async (req, res) => {
+
+    const { error, value } = shortLinkValidtion.shortLinkDeleteSchema.validate(req.body);
+
+    if (error) {
+      return res.status(400).json({ message: error.details[0].message });
+    }
+
     const user_id = req.user.userId; 
     const {link_id} = req.body; 
     try {

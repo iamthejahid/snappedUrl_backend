@@ -52,7 +52,6 @@ exports.inputInfo = async (req, res) => {
     await existingVersion.save();
 
     // Respond with a success message
-
     res.status(201).json({ message: 'Version information updated successfully' });
   } catch (error) {
     console.error('Error while updating version information:', error);
