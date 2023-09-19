@@ -2,6 +2,8 @@ const express = require('express');
 const { connectDB } = require('./config/database');
 const { clientError, serverError } = require('./controller/error');
 require('dotenv').config();
+const swaggerUi = require('swagger-ui-express');
+const swaggerSpec = require('./config/swagger_config');
 
 
 const app = express();
@@ -10,7 +12,7 @@ const port = process.env.PORT || 3000;
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 app.use((req, res, next) => {
     const timestamp = new Date().toLocaleString();
