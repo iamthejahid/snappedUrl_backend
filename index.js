@@ -12,7 +12,15 @@ const port = process.env.PORT || 3000;
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+
+
+
+if (process.env.ENV === 'development') {
+    const swaggerUi = require('swagger-ui-express');
+    const swaggerSpec = require('./config/swagger_config');
+    app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+}
+
 
 app.use((req, res, next) => {
     const timestamp = new Date().toLocaleString();
