@@ -11,36 +11,43 @@ The Snapped URL API is a powerful tool for managing and shortening URLs. It prov
 The project is organized into the following directories and files:
 
 .
+├── README.md
 ├── config
-│ └── database.js
+│   ├── database.js
+│   └── swagger_config.js
 ├── controller
-│ └── error.js
+│   └── error.js
 ├── features
-│ ├── app_version
-│ │ ├── controller.js
-│ │ ├── middleware.js
-│ │ ├── version_model.js
-│ │ └── version_routes.js
-│ ├── link_shortner
-│ │ ├── link_shortner_controller.js
-│ │ ├── link_shortner_model.js
-│ │ ├── link_shortner_routes.js
-│ │ └── schema
-│ ├── login
-│ │ ├── login_controller.js
-│ │ ├── login_routes.js
-│ │ └── schema
-│ └── registration
-│ ├── registration_controller.js
-│ ├── registration_routes.js
-│ ├── schema
-│ └── user_counter_model.js
+│   ├── app_version
+│   │   ├── controller.js
+│   │   ├── middleware.js
+│   │   ├── version_model.js
+│   │   └── version_routes.js
+│   ├── link_shortner
+│   │   ├── link_shortner_controller.js
+│   │   ├── link_shortner_model.js
+│   │   ├── link_shortner_routes.js
+│   │   └── schema
+│   ├── login
+│   │   ├── login_controller.js
+│   │   ├── login_routes.js
+│   │   └── schema
+│   └── registration
+│       ├── registration_controller.js
+│       ├── registration_routes.js
+│       ├── schema
+│       └── user_counter_model.js
 ├── index.js
 ├── middleware
-│ ├── basic_auth_middleware.js
-│ └── bearer_atuh_middleware.js
+│   ├── basic_auth_middleware.js
+│   └── bearer_atuh_middleware.js
 ├── model
-│ └── user_model.js
+│   └── user_model.js
+├── package-lock.json
+├── package.json
+├── services
+│   └── otp_controller.js
+.
 
 ## API Endpoint Summary
 
